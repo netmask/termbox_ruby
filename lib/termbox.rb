@@ -1,4 +1,4 @@
-require File.expand_path('../termbox', __FILE__)
+require File.expand_path('../termbox.bundle', __FILE__)
 
 module Termbox
 

@@ -1,6 +1,7 @@
 require 'mkmf'
 extension_name = 'termbox'
 
+
 have_header('termbox.h')
 find_library('termbox', nil)
 

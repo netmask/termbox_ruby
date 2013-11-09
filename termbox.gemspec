@@ -9,7 +9,8 @@ s = Gem::Specification.new do |spec|
   spec.authors       = ["Jonathan Garay"]
   spec.email         = ["jonathan@devmask.net"]
   spec.description   = %q{Termbox bindings for ruby}
-  spec.homepage      = ""
+  spec.summary   = %q{Termbox bindings for ruby}
+  spec.homepage      = "https://github.com/netmask/termbox_ruby"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
