@@ -3,13 +3,12 @@ lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'termbox/version'
 
-Gem::Specification.new do |spec|
+s = Gem::Specification.new do |spec|
   spec.name          = "termbox"
   spec.version       = Termbox::VERSION
   spec.authors       = ["Jonathan Garay"]
   spec.email         = ["jonathan@devmask.net"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = %q{Termbox bindings for ruby}
   spec.homepage      = ""
   spec.license       = "MIT"
 
