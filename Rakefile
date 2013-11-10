@@ -1,9 +1,13 @@
-require "bundler/gem_tasks"
 require 'rake/extensiontask'
+require "bundler/gem_tasks"
 
 spec = Gem::Specification.load('termbox.gemspec')
 
-Gem::PackageTask.new(spec) do |pkg|
+
+Rake::ExtensionTask.new('termbox', spec) do |ext|
+  ext.lib_dir = 'lib/termbox/'
+  ext.name = 'termbox'
 end
 
-Rake::ExtensionTask.new('termbox', spec)
+Gem::PackageTask.new(spec) do |pkg|
+end

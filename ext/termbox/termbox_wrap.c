@@ -1781,10 +1781,9 @@ int SWIG_Ruby_arity( VALUE proc, int minimal )
 #define SWIGTYPE_p_char swig_types[0]
 #define SWIGTYPE_p_tb_cell swig_types[1]
 #define SWIGTYPE_p_tb_event swig_types[2]
-#define SWIGTYPE_p_uint16_t swig_types[3]
-#define SWIGTYPE_p_uint32_t swig_types[4]
-static swig_type_info *swig_types[6];
-static swig_module_info swig_module = {swig_types, 5, 0, 0, 0, 0};
+#define SWIGTYPE_p_uint32_t swig_types[3]
+static swig_type_info *swig_types[5];
+static swig_module_info swig_module = {swig_types, 4, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -1835,6 +1834,65 @@ SWIG_ruby_failed(void)
 {
   return Qnil;
 } 
+
+
+/*@SWIG:/usr/local/Cellar/swig/2.0.11/share/swig/2.0.11/ruby/rubyprimtypes.swg,19,%ruby_aux_method@*/
+SWIGINTERN VALUE SWIG_AUX_NUM2ULONG(VALUE *args)
+{
+  VALUE obj = args[0];
+  VALUE type = TYPE(obj);
+  unsigned long *res = (unsigned long *)(args[1]);
+  *res = type == T_FIXNUM ? NUM2ULONG(obj) : rb_big2ulong(obj);
+  return obj;
+}
+/*@SWIG@*/
+
+SWIGINTERN int
+SWIG_AsVal_unsigned_SS_long (VALUE obj, unsigned long *val) 
+{
+  VALUE type = TYPE(obj);
+  if ((type == T_FIXNUM) || (type == T_BIGNUM)) {
+    unsigned long v;
+    VALUE a[2];
+    a[0] = obj;
+    a[1] = (VALUE)(&v);
+    if (rb_rescue(RUBY_METHOD_FUNC(SWIG_AUX_NUM2ULONG), (VALUE)a, RUBY_METHOD_FUNC(SWIG_ruby_failed), 0) != Qnil) {
+      if (val) *val = v;
+      return SWIG_OK;
+    }
+  }
+  return SWIG_TypeError;
+}
+
+
+SWIGINTERN int
+SWIG_AsVal_unsigned_SS_int (VALUE obj, unsigned int *val)
+{
+  unsigned long v;
+  int res = SWIG_AsVal_unsigned_SS_long (obj, &v);
+  if (SWIG_IsOK(res)) {
+    if ((v > UINT_MAX)) {
+      return SWIG_OverflowError;
+    } else {
+      if (val) *val = (unsigned int)(v);
+    }
+  }  
+  return res;
+}
+
+
+SWIGINTERNINLINE VALUE
+SWIG_From_unsigned_SS_long  (unsigned long value)
+{
+  return ULONG2NUM(value); 
+}
+
+
+SWIGINTERNINLINE VALUE
+SWIG_From_unsigned_SS_int  (unsigned int value)
+{    
+  return SWIG_From_unsigned_SS_long  (value);
+}
 
 
 /*@SWIG:/usr/local/Cellar/swig/2.0.11/share/swig/2.0.11/ruby/rubyprimtypes.swg,19,%ruby_aux_method@*/
@@ -1982,8 +2040,8 @@ _wrap_tb_cell_ch_set(int argc, VALUE *argv, VALUE self) {
   uint32_t arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
+  unsigned int val2 ;
+  int ecode2 = 0 ;
   
   if ((argc < 1) || (argc > 1)) {
     rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
@@ -1993,17 +2051,11 @@ _wrap_tb_cell_ch_set(int argc, VALUE *argv, VALUE self) {
     SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "struct tb_cell *","ch", 1, self )); 
   }
   arg1 = (struct tb_cell *)(argp1);
-  {
-    res2 = SWIG_ConvertPtr(argv[0], &argp2, SWIGTYPE_p_uint32_t,  0 );
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "uint32_t","ch", 2, argv[0] )); 
-    }  
-    if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "uint32_t","ch", 2, argv[0]));
-    } else {
-      arg2 = *((uint32_t *)(argp2));
-    }
-  }
+  ecode2 = SWIG_AsVal_unsigned_SS_int(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "uint32_t","ch", 2, argv[0] ));
+  } 
+  arg2 = (uint32_t)(val2);
   if (arg1) (arg1)->ch = arg2;
   return Qnil;
 fail:
@@ -2028,7 +2080,7 @@ _wrap_tb_cell_ch_get(int argc, VALUE *argv, VALUE self) {
   }
   arg1 = (struct tb_cell *)(argp1);
   result =  ((arg1)->ch);
-  vresult = SWIG_NewPointerObj((uint32_t *)memcpy((uint32_t *)malloc(sizeof(uint32_t)),&result,sizeof(uint32_t)), SWIGTYPE_p_uint32_t, SWIG_POINTER_OWN |  0 );
+  vresult = SWIG_From_unsigned_SS_int((unsigned int)(result));
   return vresult;
 fail:
   return Qnil;
@@ -2041,8 +2093,8 @@ _wrap_tb_cell_fg_set(int argc, VALUE *argv, VALUE self) {
   uint16_t arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
+  unsigned int val2 ;
+  int ecode2 = 0 ;
   
   if ((argc < 1) || (argc > 1)) {
     rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
@@ -2052,17 +2104,11 @@ _wrap_tb_cell_fg_set(int argc, VALUE *argv, VALUE self) {
     SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "struct tb_cell *","fg", 1, self )); 
   }
   arg1 = (struct tb_cell *)(argp1);
-  {
-    res2 = SWIG_ConvertPtr(argv[0], &argp2, SWIGTYPE_p_uint16_t,  0 );
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "uint16_t","fg", 2, argv[0] )); 
-    }  
-    if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "uint16_t","fg", 2, argv[0]));
-    } else {
-      arg2 = *((uint16_t *)(argp2));
-    }
-  }
+  ecode2 = SWIG_AsVal_unsigned_SS_int(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "uint16_t","fg", 2, argv[0] ));
+  } 
+  arg2 = (uint16_t)(val2);
   if (arg1) (arg1)->fg = arg2;
   return Qnil;
 fail:
@@ -2087,7 +2133,7 @@ _wrap_tb_cell_fg_get(int argc, VALUE *argv, VALUE self) {
   }
   arg1 = (struct tb_cell *)(argp1);
   result =  ((arg1)->fg);
-  vresult = SWIG_NewPointerObj((uint16_t *)memcpy((uint16_t *)malloc(sizeof(uint16_t)),&result,sizeof(uint16_t)), SWIGTYPE_p_uint16_t, SWIG_POINTER_OWN |  0 );
+  vresult = SWIG_From_unsigned_SS_int((unsigned int)(result));
   return vresult;
 fail:
   return Qnil;
@@ -2100,8 +2146,8 @@ _wrap_tb_cell_bg_set(int argc, VALUE *argv, VALUE self) {
   uint16_t arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
+  unsigned int val2 ;
+  int ecode2 = 0 ;
   
   if ((argc < 1) || (argc > 1)) {
     rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
@@ -2111,17 +2157,11 @@ _wrap_tb_cell_bg_set(int argc, VALUE *argv, VALUE self) {
     SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "struct tb_cell *","bg", 1, self )); 
   }
   arg1 = (struct tb_cell *)(argp1);
-  {
-    res2 = SWIG_ConvertPtr(argv[0], &argp2, SWIGTYPE_p_uint16_t,  0 );
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "uint16_t","bg", 2, argv[0] )); 
-    }  
-    if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "uint16_t","bg", 2, argv[0]));
-    } else {
-      arg2 = *((uint16_t *)(argp2));
-    }
-  }
+  ecode2 = SWIG_AsVal_unsigned_SS_int(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "uint16_t","bg", 2, argv[0] ));
+  } 
+  arg2 = (uint16_t)(val2);
   if (arg1) (arg1)->bg = arg2;
   return Qnil;
 fail:
@@ -2146,7 +2186,7 @@ _wrap_tb_cell_bg_get(int argc, VALUE *argv, VALUE self) {
   }
   arg1 = (struct tb_cell *)(argp1);
   result =  ((arg1)->bg);
-  vresult = SWIG_NewPointerObj((uint16_t *)memcpy((uint16_t *)malloc(sizeof(uint16_t)),&result,sizeof(uint16_t)), SWIGTYPE_p_uint16_t, SWIG_POINTER_OWN |  0 );
+  vresult = SWIG_From_unsigned_SS_int((unsigned int)(result));
   return vresult;
 fail:
   return Qnil;
@@ -2266,36 +2306,24 @@ SWIGINTERN VALUE
 _wrap_tb_set_clear_attributes(int argc, VALUE *argv, VALUE self) {
   uint16_t arg1 ;
   uint16_t arg2 ;
-  void *argp1 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
+  unsigned int val1 ;
+  int ecode1 = 0 ;
+  unsigned int val2 ;
+  int ecode2 = 0 ;
   
   if ((argc < 2) || (argc > 2)) {
     rb_raise(rb_eArgError, "wrong # of arguments(%d for 2)",argc); SWIG_fail;
   }
-  {
-    res1 = SWIG_ConvertPtr(argv[0], &argp1, SWIGTYPE_p_uint16_t,  0 );
-    if (!SWIG_IsOK(res1)) {
-      SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "uint16_t","tb_set_clear_attributes", 1, argv[0] )); 
-    }  
-    if (!argp1) {
-      SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "uint16_t","tb_set_clear_attributes", 1, argv[0]));
-    } else {
-      arg1 = *((uint16_t *)(argp1));
-    }
-  }
-  {
-    res2 = SWIG_ConvertPtr(argv[1], &argp2, SWIGTYPE_p_uint16_t,  0 );
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "uint16_t","tb_set_clear_attributes", 2, argv[1] )); 
-    }  
-    if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "uint16_t","tb_set_clear_attributes", 2, argv[1]));
-    } else {
-      arg2 = *((uint16_t *)(argp2));
-    }
-  }
+  ecode1 = SWIG_AsVal_unsigned_SS_int(argv[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), Ruby_Format_TypeError( "", "uint16_t","tb_set_clear_attributes", 1, argv[0] ));
+  } 
+  arg1 = (uint16_t)(val1);
+  ecode2 = SWIG_AsVal_unsigned_SS_int(argv[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "uint16_t","tb_set_clear_attributes", 2, argv[1] ));
+  } 
+  arg2 = (uint16_t)(val2);
   tb_set_clear_attributes(arg1,arg2);
   return Qnil;
 fail:
@@ -2392,12 +2420,12 @@ _wrap_tb_change_cell(int argc, VALUE *argv, VALUE self) {
   int ecode1 = 0 ;
   int val2 ;
   int ecode2 = 0 ;
-  void *argp3 ;
-  int res3 = 0 ;
-  void *argp4 ;
-  int res4 = 0 ;
-  void *argp5 ;
-  int res5 = 0 ;
+  unsigned int val3 ;
+  int ecode3 = 0 ;
+  unsigned int val4 ;
+  int ecode4 = 0 ;
+  unsigned int val5 ;
+  int ecode5 = 0 ;
   
   if ((argc < 5) || (argc > 5)) {
     rb_raise(rb_eArgError, "wrong # of arguments(%d for 5)",argc); SWIG_fail;
@@ -2412,39 +2440,21 @@ _wrap_tb_change_cell(int argc, VALUE *argv, VALUE self) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "int","tb_change_cell", 2, argv[1] ));
   } 
   arg2 = (int)(val2);
-  {
-    res3 = SWIG_ConvertPtr(argv[2], &argp3, SWIGTYPE_p_uint32_t,  0 );
-    if (!SWIG_IsOK(res3)) {
-      SWIG_exception_fail(SWIG_ArgError(res3), Ruby_Format_TypeError( "", "uint32_t","tb_change_cell", 3, argv[2] )); 
-    }  
-    if (!argp3) {
-      SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "uint32_t","tb_change_cell", 3, argv[2]));
-    } else {
-      arg3 = *((uint32_t *)(argp3));
-    }
-  }
-  {
-    res4 = SWIG_ConvertPtr(argv[3], &argp4, SWIGTYPE_p_uint16_t,  0 );
-    if (!SWIG_IsOK(res4)) {
-      SWIG_exception_fail(SWIG_ArgError(res4), Ruby_Format_TypeError( "", "uint16_t","tb_change_cell", 4, argv[3] )); 
-    }  
-    if (!argp4) {
-      SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "uint16_t","tb_change_cell", 4, argv[3]));
-    } else {
-      arg4 = *((uint16_t *)(argp4));
-    }
-  }
-  {
-    res5 = SWIG_ConvertPtr(argv[4], &argp5, SWIGTYPE_p_uint16_t,  0 );
-    if (!SWIG_IsOK(res5)) {
-      SWIG_exception_fail(SWIG_ArgError(res5), Ruby_Format_TypeError( "", "uint16_t","tb_change_cell", 5, argv[4] )); 
-    }  
-    if (!argp5) {
-      SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "uint16_t","tb_change_cell", 5, argv[4]));
-    } else {
-      arg5 = *((uint16_t *)(argp5));
-    }
-  }
+  ecode3 = SWIG_AsVal_unsigned_SS_int(argv[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), Ruby_Format_TypeError( "", "uint32_t","tb_change_cell", 3, argv[2] ));
+  } 
+  arg3 = (uint32_t)(val3);
+  ecode4 = SWIG_AsVal_unsigned_SS_int(argv[3], &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), Ruby_Format_TypeError( "", "uint16_t","tb_change_cell", 4, argv[3] ));
+  } 
+  arg4 = (uint16_t)(val4);
+  ecode5 = SWIG_AsVal_unsigned_SS_int(argv[4], &val5);
+  if (!SWIG_IsOK(ecode5)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode5), Ruby_Format_TypeError( "", "uint16_t","tb_change_cell", 5, argv[4] ));
+  } 
+  arg5 = (uint16_t)(val5);
   tb_change_cell(arg1,arg2,arg3,arg4,arg5);
   return Qnil;
 fail:
@@ -2651,8 +2661,8 @@ _wrap_tb_utf8_unicode_to_char(int argc, VALUE *argv, VALUE self) {
   int res1 ;
   char *buf1 = 0 ;
   int alloc1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
+  unsigned int val2 ;
+  int ecode2 = 0 ;
   int result;
   VALUE vresult = Qnil;
   
@@ -2664,17 +2674,11 @@ _wrap_tb_utf8_unicode_to_char(int argc, VALUE *argv, VALUE self) {
     SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "char *","tb_utf8_unicode_to_char", 1, argv[0] ));
   }
   arg1 = (char *)(buf1);
-  {
-    res2 = SWIG_ConvertPtr(argv[1], &argp2, SWIGTYPE_p_uint32_t,  0 );
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "uint32_t","tb_utf8_unicode_to_char", 2, argv[1] )); 
-    }  
-    if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "uint32_t","tb_utf8_unicode_to_char", 2, argv[1]));
-    } else {
-      arg2 = *((uint32_t *)(argp2));
-    }
-  }
+  ecode2 = SWIG_AsVal_unsigned_SS_int(argv[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "uint32_t","tb_utf8_unicode_to_char", 2, argv[1] ));
+  } 
+  arg2 = (uint32_t)(val2);
   result = (int)tb_utf8_unicode_to_char(arg1,arg2);
   vresult = SWIG_From_int((int)(result));
   if (alloc1 == SWIG_NEWOBJ) free((char*)buf1);
@@ -2691,28 +2695,24 @@ fail:
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_tb_cell = {"_p_tb_cell", "tb_cell *|struct tb_cell *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_tb_event = {"_p_tb_event", "struct tb_event *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_uint16_t = {"_p_uint16_t", "uint16_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_uint32_t = {"_p_uint32_t", "uint32_t *", 0, 0, (void*)0, 0};
 
 static swig_type_info *swig_type_initial[] = {
   &_swigt__p_char,
   &_swigt__p_tb_cell,
   &_swigt__p_tb_event,
-  &_swigt__p_uint16_t,
   &_swigt__p_uint32_t,
 };
 
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_tb_cell[] = {  {&_swigt__p_tb_cell, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_tb_event[] = {  {&_swigt__p_tb_event, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_uint16_t[] = {  {&_swigt__p_uint16_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_uint32_t[] = {  {&_swigt__p_uint32_t, 0, 0, 0},{0, 0, 0, 0}};
 
 static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_char,
   _swigc__p_tb_cell,
   _swigc__p_tb_event,
-  _swigc__p_uint16_t,
   _swigc__p_uint32_t,
 };
 

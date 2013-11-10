@@ -2,6 +2,9 @@
  %{
    #include "termbox.h"
  %}
+%apply unsigned int { uint32_t }
+%apply unsigned int { uint16_t }
+%apply unsigned long long { uint64_t }
 
 #define TB_EUNSUPPORTED_TERMINAL        -1
 #define TB_EFAILED_TO_OPEN_TTY                -2
